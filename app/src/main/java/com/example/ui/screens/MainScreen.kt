@@ -83,7 +83,7 @@ fun MainScreen(viewModel: FinanceViewModel) {
                 title = {
                     Column {
                         Text(
-                            text = "Chào buổi tối em,",
+                            text = "Chào buổi sáng,",
                             fontSize = 11.sp,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f),

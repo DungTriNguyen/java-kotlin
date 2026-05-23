@@ -170,84 +170,83 @@ class FinanceViewModel(private val repository: FinanceRepository) : ViewModel() 
     fun seedSampleDataIfEmpty() {
         viewModelScope.launch {
             // Check if db is empty before seeding
-            transactions.take(1).collect { list ->
-                if (list.isEmpty()) {
-                    // Pre-populate some general budgets for low/mid income helpers
-                    repository.insertBudget(BudgetEntity("Ăn uống", 3000000.0))
-                    repository.insertBudget(BudgetEntity("Đi lại", 500000.0))
-                    repository.insertBudget(BudgetEntity("Nhà cửa", 2500000.0))
-                    repository.insertBudget(BudgetEntity("Hóa đơn", 1000000.0))
+            val count = repository.getTransactionCount()
+            if (count == 0) {
+                // Pre-populate some general budgets for low/mid income helpers
+                repository.insertBudget(BudgetEntity("Ăn uống", 3000000.0))
+                repository.insertBudget(BudgetEntity("Đi lại", 500000.0))
+                repository.insertBudget(BudgetEntity("Nhà cửa", 2500000.0))
+                repository.insertBudget(BudgetEntity("Hóa đơn", 1000000.0))
 
-                    // Some logical transactions
-                    repository.insertTransaction(
-                        TransactionEntity(
-                            amount = 9000000.0,
-                            isIncome = true,
-                            category = "Thu nhập",
-                            note = "Lương tháng này",
-                            timestamp = System.currentTimeMillis() - 86400000 * 5
-                        )
+                // Some logical transactions
+                repository.insertTransaction(
+                    TransactionEntity(
+                        amount = 9000000.0,
+                        isIncome = true,
+                        category = "Thu nhập",
+                        note = "Lương tháng này",
+                        timestamp = System.currentTimeMillis() - 86400000 * 5
                     )
-                    repository.insertTransaction(
-                        TransactionEntity(
-                            amount = 2300000.0,
-                            isIncome = false,
-                            category = "Nhà cửa",
-                            note = "Tiền phòng trọ + nước",
-                            timestamp = System.currentTimeMillis() - 86400000 * 4
-                        )
+                )
+                repository.insertTransaction(
+                    TransactionEntity(
+                        amount = 2300000.0,
+                        isIncome = false,
+                        category = "Nhà cửa",
+                        note = "Tiền phòng trọ + nước",
+                        timestamp = System.currentTimeMillis() - 86400000 * 4
                     )
-                    repository.insertTransaction(
-                        TransactionEntity(
-                            amount = 120000.0,
-                            isIncome = false,
-                            category = "Ăn uống",
-                            note = "Đi chợ nấu ăn 3 ngày",
-                            timestamp = System.currentTimeMillis() - 86400000 * 3
-                        )
+                )
+                repository.insertTransaction(
+                    TransactionEntity(
+                        amount = 120000.0,
+                        isIncome = false,
+                        category = "Ăn uống",
+                        note = "Đi chợ nấu ăn 3 ngày",
+                        timestamp = System.currentTimeMillis() - 86400000 * 3
                     )
-                    // Sample waste transaction
-                    repository.insertTransaction(
-                        TransactionEntity(
-                            amount = 150000.0,
-                            isIncome = false,
-                            category = "Giải trí",
-                            note = "Trà sữa & đồ ăn vặt ngẫu hứng",
-                            timestamp = System.currentTimeMillis() - 86400000 * 2,
-                            isLossRisk = true,
-                            lossRiskType = "Chi tiêu tùy ý"
-                        )
+                )
+                // Sample waste transaction
+                repository.insertTransaction(
+                    TransactionEntity(
+                        amount = 150000.0,
+                        isIncome = false,
+                        category = "Giải trí",
+                        note = "Trà sữa & đồ ăn vặt ngẫu hứng",
+                        timestamp = System.currentTimeMillis() - 86400000 * 2,
+                        isLossRisk = true,
+                        lossRiskType = "Chi tiêu tùy ý"
                     )
-                    // Subscription example that leaks money
-                    repository.insertSubscription(
-                        SubscriptionEntity(
-                            name = "Gói xem phim Netflix phụ",
-                            amount = 180000.0,
-                            billingCycle = "Hàng tháng",
-                            renewalDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 2, // Renewing in 2 days!
-                            category = "Giải trí",
-                            isActive = true
-                        )
+                )
+                // Subscription example that leaks money
+                repository.insertSubscription(
+                    SubscriptionEntity(
+                        name = "Gói xem phim Netflix phụ",
+                        amount = 180000.0,
+                        billingCycle = "Hàng tháng",
+                        renewalDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + 2, // Renewing in 2 days!
+                        category = "Giải trí",
+                        isActive = true
                     )
-                    repository.insertSubscription(
-                        SubscriptionEntity(
-                            name = "Phí SMS Banking không dùng",
-                            amount = 11000.0,
-                            billingCycle = "Hàng tháng",
-                            renewalDay = 5,
-                            category = "Phí tài khoản",
-                            isActive = true
-                        )
+                )
+                repository.insertSubscription(
+                    SubscriptionEntity(
+                        name = "Phí SMS Banking không dùng",
+                        amount = 11000.0,
+                        billingCycle = "Hàng tháng",
+                        renewalDay = 5,
+                        category = "Phí tài khoản",
+                        isActive = true
                     )
-                    // Sample saving goal
-                    repository.insertSavingGoal(
-                        SavingGoalEntity(
-                            name = "Quỹ khẩn cấp (Phòng ốm đau/Thất nghiệp)",
-                            targetAmount = 5000000.0,
-                            savedAmount = 1500000.0
-                        )
+                )
+                // Sample saving goal
+                repository.insertSavingGoal(
+                    SavingGoalEntity(
+                        name = "Quỹ khẩn cấp (Phòng ốm đau/Thất nghiệp)",
+                        targetAmount = 5000000.0,
+                        savedAmount = 1500000.0
                     )
-                }
+                )
             }
         }
     }

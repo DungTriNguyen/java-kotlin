@@ -8,6 +8,10 @@ class FinanceRepository(private val financeDao: FinanceDao) {
     val allSavingGoals: Flow<List<SavingGoalEntity>> = financeDao.getAllSavingGoals()
     val allSubscriptions: Flow<List<SubscriptionEntity>> = financeDao.getAllSubscriptions()
 
+    suspend fun getTransactionCount(): Int {
+        return financeDao.getTransactionCount()
+    }
+
     suspend fun insertTransaction(transaction: TransactionEntity) {
         financeDao.insertTransaction(transaction)
     }
