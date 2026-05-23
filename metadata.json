@@ -1,0 +1,6 @@
+{
+  "name": "Tài Chính Cá Nhân",
+  "description": "Ứng dụng quản lý chi tiêu, lập hũ tiết kiệm và tránh mất tiền oan dành cho người thu nhập trung bình và thấp.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
