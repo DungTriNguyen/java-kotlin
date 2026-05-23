@@ -639,7 +639,7 @@ fun CashflowTab(
                         }
                         Spacer(modifier = Modifier.height(8.dp))
                         LinearProgressIndicator(
-                            progress = { ratioClamped },
+                            progress = ratioClamped,
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(8.dp)
@@ -952,7 +952,7 @@ fun BudgetAlertSection(
                             }
                             Spacer(modifier = Modifier.height(2.dp))
                             LinearProgressIndicator(
-                                progress = { ratio.toFloat().coerceAtMost(1f) },
+                                progress = ratio.toFloat().coerceAtMost(1f),
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .height(6.dp)
@@ -1297,7 +1297,7 @@ fun GoalRowItem(
             // Progress estimation
             val progress = if (goal.targetAmount > 0) (goal.savedAmount / goal.targetAmount).toFloat() else 0f
             LinearProgressIndicator(
-                progress = { progress.coerceIn(0f, 1f) },
+                progress = progress.coerceIn(0f, 1f),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(8.dp)
@@ -1940,7 +1940,7 @@ fun FormulaProgressRow(
         }
         Spacer(modifier = Modifier.height(3.dp))
         LinearProgressIndicator(
-            progress = { percent },
+            progress = percent,
             color = color,
             trackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.05f),
             modifier = Modifier
